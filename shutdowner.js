@@ -1,12 +1,14 @@
 const nodeCmd = require('node-cmd');
 
 const delayArgument = process.argv[2];
-let timer = delayArgument;
+let timer = delayArgument * 60;
 
 console.log('Naciśnij CTRL + C by anulować');
 
 const interval = setInterval(() => {
-  console.log(`Komputer wyłączy się za : ${timer} sekund`);
+  let minutes = Math.floor(timer / 60);
+  let seconds = (timer % 60);
+  console.log(`Komputer wyłączy się za : ${minutes} minut, ${seconds} sekund`);
   if (timer === 0) {
     clearInterval(interval);
     shutdownPC();
