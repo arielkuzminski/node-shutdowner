@@ -2,9 +2,9 @@ const nodeCmd = require('node-cmd');
 
 const delayArgument = process.argv[2];
 
-if (!delayArgument) {
+if (!delayArgument || isNaN(delayArgument)) {
   console.error('Proszę podaj czas w minutach i spróbuj ponownie.');
-  return false;
+  return new Error();
 }
 
 let timer = delayArgument * 60;
