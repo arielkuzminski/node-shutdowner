@@ -1,6 +1,12 @@
 const nodeCmd = require('node-cmd');
 
 const delayArgument = process.argv[2];
+
+if (!delayArgument) {
+  console.error('Proszę podaj czas w minutach i spróbuj ponownie.');
+  return false;
+}
+
 let timer = delayArgument * 60;
 
 console.log('Naciśnij CTRL + C by anulować');
