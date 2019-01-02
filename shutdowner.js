@@ -1,13 +1,15 @@
 const nodeCmd = require('node-cmd');
 
-const delayArgument = process.argv[2];
+const argv = require('yargs').argv;
+const delayArgument = argv.minutes;
+const delayArgumentSeconds = argv.seconds;
 
 if (!delayArgument || isNaN(delayArgument) || delayArgument < 0) {
   console.error('Proszę podaj czas w minutach i spróbuj ponownie.');
   return new Error();
 }
 
-let timer = delayArgument * 60;
+let timer = (delayArgument * 60) + (delayArgumentSeconds || 0);
 
 console.log('Naciśnij CTRL + C by anulować');
 
