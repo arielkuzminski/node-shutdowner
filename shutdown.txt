@@ -1,0 +1,1 @@
+timeout -t 3600 -nobreak && shutdown -s -t 00
