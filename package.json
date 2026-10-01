@@ -1,7 +1,7 @@
 {
   "name": "shutdowner",
   "version": "2.0.0",
-  "description": "Odlicza podany czas i wyłącza komputer (Windows, Linux, macOS, WSL).",
+  "description": "Odlicza podany czas i wyłącza komputer — w terminalu albo w przeglądarce (Windows, Linux, macOS, WSL).",
   "type": "module",
   "bin": {
     "shutdowner": "src/cli.ts"
@@ -11,6 +11,8 @@
   },
   "scripts": {
     "start": "node src/cli.ts",
+    "gui": "node src/cli.ts --gui",
+    "gui:dry": "node src/cli.ts --gui --dry-run",
     "test": "node --test",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",

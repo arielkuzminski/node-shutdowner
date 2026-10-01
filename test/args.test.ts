@@ -5,7 +5,7 @@ import { parseArgs } from '../src/args.ts';
 const total = (argv: string[]) => {
   const result = parseArgs(argv);
   assert.equal(result.kind, 'run');
-  return result.kind === 'run' ? result.options.totalSeconds : NaN;
+  return result.kind === 'run' && result.options.mode === 'terminal' ? result.options.totalSeconds : NaN;
 };
 
 const isError = (argv: string[]) => assert.equal(parseArgs(argv).kind, 'error');
@@ -40,6 +40,23 @@ test('rejects invalid values', () => {
 
 test('parses --dry-run and --help', () => {
   const result = parseArgs(['-s', '3', '--dry-run']);
-  assert.deepEqual(result, { kind: 'run', options: { totalSeconds: 3, dryRun: true } });
+  assert.deepEqual(result, { kind: 'run', options: { mode: 'terminal', totalSeconds: 3, dryRun: true } });
   assert.equal(parseArgs(['--help']).kind, 'help');
+});
+
+test('parses --gui with an optional port', () => {
+  assert.deepEqual(parseArgs(['--gui']), { kind: 'run', options: { mode: 'gui', port: 0, dryRun: false } });
+  assert.deepEqual(parseArgs(['--gui', '--port', '4321', '--dry-run']), {
+    kind: 'run',
+    options: { mode: 'gui', port: 4321, dryRun: true },
+  });
+});
+
+test('rejects invalid --gui combinations', () => {
+  isError(['--gui', '--minutes', '5']);
+  isError(['--gui', '-s', '5']);
+  isError(['--gui', '--port', 'abc']);
+  isError(['--gui', '--port', '70000']);
+  isError(['--gui', '--port', '1.5']);
+  isError(['--port', '4321', '-s', '5']);
 });
