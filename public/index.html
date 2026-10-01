@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shutdowner</title>
+    <link rel="icon" href="/favicon.svg" />
+    <link rel="stylesheet" href="/style.css" />
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body data-status="idle">
+    <main>
+      <p id="dry-run" class="banner" hidden>Tryb próbny — komputer nie zostanie wyłączony</p>
+
+      <h1>Shutdowner</h1>
+
+      <form id="form">
+        <div class="row">
+          <input id="amount" type="number" min="0" step="any" placeholder="Czas" aria-label="Czas" autofocus />
+          <select id="unit" aria-label="Jednostka">
+            <option value="minutes">minut</option>
+            <option value="seconds">sekund</option>
+          </select>
+        </div>
+        <div class="row">
+          <button id="start" type="submit" class="primary" disabled>Start</button>
+          <button id="pause" type="button" disabled>Pauza</button>
+          <button id="cancel" type="button" class="danger" disabled>Anuluj</button>
+        </div>
+      </form>
+
+      <section class="countdown" aria-live="polite">
+        <div id="clock"></div>
+        <div id="caption"></div>
+        <progress id="progress" max="1" value="1"></progress>
+      </section>
+
+      <p id="error" class="error" role="alert"></p>
+      <p id="command" class="muted"></p>
+      <p class="muted">Kartę możesz zamknąć — odliczanie trwa dalej. Ctrl+C w terminalu kończy i anuluje.</p>
+    </main>
+  </body>
+</html>
